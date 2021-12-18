@@ -2,11 +2,11 @@
   "kind": "collectionType",
   "collectionName": "events",
   "info": {
-    "singularName": "event",
-    "pluralName": "events",
-    "displayName": "events"
+    "name": "events"
   },
   "options": {
+    "increments": true,
+    "timestamps": true,
     "draftAndPublish": true
   },
   "pluginOptions": {},
@@ -15,7 +15,8 @@
       "type": "string"
     },
     "slug": {
-      "type": "uid"
+      "type": "uid",
+      "targetField": "name"
     },
     "venue": {
       "type": "string"
@@ -36,19 +37,21 @@
       "type": "richtext"
     },
     "image": {
+      "model": "file",
+      "via": "related",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "type": "media",
-      "multiple": false
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
     },
     "user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "events"
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "events"
     }
   }
 }
