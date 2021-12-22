@@ -4,12 +4,13 @@ import cookie from "cookie";
 
 export default async (req, res) => {
   if (req.method === "POST") {
-    const { identifier, password } = req.body;
+    const { username, email, password } = req.body;
 
     const strapiRes = await axios
-      .post(`${API_URL}/auth/local`, {
-        identifier: identifier,
-        password: password,
+      .post(`${API_URL}/auth/local/register`, {
+        username,
+        email,
+        password,
       })
       .then((response) => {
         // Handle success.
